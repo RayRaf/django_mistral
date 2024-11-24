@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mistral AI Prompt</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+    <h1>Генератор промптов Mistral AI</h1>
+    <form id="prompt-form" method="POST">
+        {% csrf_token %}
+        <textarea name="prompt" rows="4" cols="50" placeholder="Введите ваш промпт здесь"></textarea><br><br>
+        <button type="submit">Отправить</button>
+    </form>
+    <div id="response"></div>
+
+    <script>
+        document.getElementById("prompt-form").onsubmit = async function(e) {
+            e.preventDefault();
+            const form = e.target;
+            const formData = new FormData(form);
+            const response = await fetch(form.action, {
+                method: form.method,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                },
+                body: formData
+            });
+            const json = await response.json();
+            document.getElementById("response").innerHTML = marked.parse(json.response);
+        };
+    </script>
+</body>
+</html>
