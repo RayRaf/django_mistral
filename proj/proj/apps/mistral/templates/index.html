@@ -1,35 +1,56 @@
 <!DOCTYPE html>
-<html lang="ru">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mistral AI Prompt</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-</head>
-<body>
-    <h1>Генератор промптов Mistral AI</h1>
-    <form id="prompt-form" method="POST">
-        {% csrf_token %}
-        <textarea name="prompt" rows="4" cols="50" placeholder="Введите ваш промпт здесь"></textarea><br><br>
-        <button type="submit">Отправить</button>
-    </form>
-    <div id="response"></div>
+ <html lang="ru">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Генератор опросных листов на базе ИИ</title>
+     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+     <style>
+         #loading {
+             display: none;
+             font-size: 1.2em;
+             color: blue;
+         }
+     </style>
+ </head>
+ <body>
+     <h1>Генератор опросных листов на базе ИИ</h1>
+     <form id="prompt-form" method="POST">
+         {% csrf_token %}
+         <textarea name="prompt" rows="4" cols="50" placeholder="Введите ваш промпт здесь"></textarea><br><br>
+         <button type="submit">Отправить</button>
+     </form>
+     <div id="loading">Подождите, идет обработка...</div>
+     <div id="response"></div>
+     <button id="download-button" style="display:none;" onclick="window.location.href='{% url 'download_docx' %}'">Скачать файл Word</button>
 
-    <script>
-        document.getElementById("prompt-form").onsubmit = async function(e) {
-            e.preventDefault();
-            const form = e.target;
-            const formData = new FormData(form);
-            const response = await fetch(form.action, {
-                method: form.method,
-                headers: {
-                    'X-Requested-With': 'XMLHttpRequest',
-                },
-                body: formData
-            });
-            const json = await response.json();
-            document.getElementById("response").innerHTML = marked.parse(json.response);
-        };
-    </script>
-</body>
-</html>
+     <script>
+         document.getElementById("prompt-form").onsubmit = async function(e) {
+             e.preventDefault();
+             const form = e.target;
+             const formData = new FormData(form);
+             
+             document.getElementById("loading").style.display = 'block';
+             const response = await fetch(form.action, {
+                 method: form.method,
+                 headers: {
+                     'X-Requested-With': 'XMLHttpRequest',
+                 },
+                 body: formData
+             });
+             document.getElementById("loading").style.display = 'none';
+             
+             const json = await response.json();
+             document.getElementById("response").innerHTML = marked.parse(json.response);
+             document.getElementById("download-button").style.display = 'block';
+         };
+
+         document.getElementById("prompt-form").addEventListener("keydown", function(e) {
+             if (e.key === "Enter" && !e.shiftKey) {
+                 e.preventDefault();
+                 document.querySelector("button[type='submit']").click();
+             }
+         });
+     </script>
+ </body>
+ </html>
