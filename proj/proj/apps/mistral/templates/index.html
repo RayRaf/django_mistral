@@ -4,13 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Генератор опросных листов</title>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js">
-        // Установка начальной темы в зависимости от настроек операционной системы
-        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-            document.body.classList.add('dark-mode');
-            document.getElementById("theme-toggle").innerText = "Дневной режим";
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
     <style>
         html, body {
@@ -32,6 +26,15 @@
             margin-bottom: 20px;
             transition: background-color 0.5s;
             background-color: #3a6ea5;
+        }
+        .navbar-toggler {
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+        .navbar-toggler-icon {
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3E%3Cpath stroke='rgba%28255, 255, 255, 0.5%29' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3E%3C/svg%3E");
+        }
+        .collapse.navbar-collapse {
+            transition: height 0.3s ease;
         }
         .card {
             margin-bottom: 20px;
@@ -67,9 +70,12 @@
             background-color: #333;
             color: #ffffff;
         }
-        .dark-mode .nav-link { color: #ffffff;
+        .dark-mode .nav-link {
+            color: #ffffff;
         }
-        .dark-mode .nav-link:hover { background-color: #5a6269; color: #ffffff;
+        .dark-mode .nav-link:hover {
+            background-color: #596877;
+            color: #ffffff;
         }
         .btn {
             transition: background-color 0.5s, color 0.5s;
@@ -88,7 +94,7 @@
         .dark-mode .btn-success:hover {
             background-color: #388e3c;
         }
-            .dark-mode .modal-content {
+        .dark-mode .modal-content {
             background-color: #2e2e2e;
             color: #ffffff;
         }
@@ -98,7 +104,7 @@
         .text-dark-mode {
             color: inherit;
         }
-            .adaptive-textarea {
+        .adaptive-textarea {
             transition: background-color 0.5s, color 0.5s;
         }
         .dark-mode .adaptive-textarea {
@@ -106,11 +112,16 @@
             color: #ffffff;
             border: 1px solid #5b8cbf;
         }
+
     </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light">
+        
         <div class="container-fluid">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <a class="navbar-brand text-white" href="#">Генератор опросных листов</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ml-auto">
@@ -149,7 +160,7 @@
         </div>
     </div>
     <footer>
-        <p>&copy; 2024 Генератор опросных листов. Раиль Рафиков. Все права защищены.</p>
+        <p>&copy; 2024 Генератор опросных листов. Все права защищены.</p>
     
     <!-- Модальные окна -->
     <div class="modal fade" id="aboutModal" tabindex="-1" aria-labelledby="aboutModalLabel" aria-hidden="true">
@@ -177,10 +188,10 @@
                 </div>
                 <div class="modal-body">
                     <p>Если вам нужна помощь в использовании Генератора опросных листов, вы можете следовать этим шагам:</p>
-                    <p>1. Введите ваш запрос или описание устройства в текстовое поле на главной странице.</p>
-                    <p>2. Нажмите кнопку "Отправить", чтобы получить сгенерированный опросный лист с необходимыми параметрами.</p>
-                    <p>3. Если необходимо, вы можете скачать полученные данные в формате Word, нажав на кнопку "Скачать файл Word".</p>
-                    <p>4. Если у вас возникли трудности, обратитесь к разделу "О проекте" или свяжитесь с разработчиками через контактную информацию, указанную внизу страницы.</p>
+                    <p>Введите ваш запрос или описание устройства в текстовое поле на главной странице.</p>
+                    <p>Нажмите кнопку "Отправить", чтобы получить сгенерированный опросный лист с необходимыми параметрами.</p>
+                    <p>Если необходимо, вы можете скачать полученные данные в формате Word, нажав на кнопку "Скачать файл Word".</p>
+                    <p>Если у вас возникли трудности, обратитесь к разделу "О проекте" или свяжитесь с разработчиками через контактную информацию, указанную внизу страницы.</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>

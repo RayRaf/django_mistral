@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-^@e+_#hk%)c*ji1619knu+hc9=03_szv%)a_1r&3926dg&r#7)
 DEBUG = True
 
 ALLOWED_HOSTS = ['*']
-
+CSRF_TRUSTED_ORIGINS = ['https://thriller-combines-mate-incorrect.trycloudflare.com'] # Заменить на правильный при публикации
 
 # Application definition
 
