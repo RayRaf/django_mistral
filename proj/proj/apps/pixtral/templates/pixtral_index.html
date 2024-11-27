@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Анализ счета {% endblock %}
+
+{% block content %}
+
+    <h1>Анализ счета</h1>
+    <input type="file" id="image" accept="image/*">
+    <button onclick="analyzeImage()">Начать анализ</button>
+    <p id="result"></p>
+    
+    <script src="{% static 'pixtral/script.js' %}"></script>
+
+      
+
+{% endblock %}
+
+
+
+
+

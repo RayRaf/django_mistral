@@ -1,0 +1,39 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Image Analysis</title>
+     <script>
+         function analyzeImage() {
+             const formData = new FormData();
+             const imageFile = document.getElementById('image').files[0];
+             formData.append('image', imageFile);
+
+             document.getElementById('result').innerText = 'Анализ документа...';
+
+             fetch('/analyze_image/', {
+                 method: 'POST',
+                 body: formData
+             })
+             .then(response => response.json())
+             .then(data => {
+                 if (data.result) {
+                     document.getElementById('result').innerText = data.result;
+                 } else {
+                     document.getElementById('result').innerText = 'Error: ' + (data.error || 'Unknown error');
+                 }
+             })
+             .catch(error => {
+                 document.getElementById('result').innerText = 'Error: ' + error;
+             });
+         }
+     </script>
+ </head>
+ <body>
+     <h1>Image Analysis</h1>
+     <input type="file" id="image" accept="image/*">
+     <button onclick="analyzeImage()">Начать анализ</button>
+     <p id="result"></p>
+ </body>
+ </html>

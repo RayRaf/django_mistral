@@ -9,13 +9,13 @@ import markdown
 import re
 
 # Home view to render the interface
-def home(request):
+def main(request):
     if request.method == "POST":
         prompt = request.POST.get("prompt")
         response = get_mistral_response(prompt)
         request.session['response_text'] = response  # Save raw response in session for download
         return JsonResponse({"response": response})
-    return render(request, "index.html")
+    return render(request, "mistral_index.html")
 
 # Function to get response from Mistral API
 def get_mistral_response(prompt):

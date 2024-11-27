@@ -1,0 +1,96 @@
+html, body {
+    height: 100%;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    transition: background-color 0.5s, color 0.5s;
+}
+#content {
+    flex: 1;
+}
+#loading {
+    display: none;
+    text-align: center;
+}
+.navbar {
+    margin-bottom: 20px;
+    transition: background-color 0.5s;
+    background-color: #3a6ea5;
+}
+.card {
+    margin-bottom: 20px;
+    transition: background-color 0.5s, color 0.5s;
+}
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    margin-top: auto;
+    transition: background-color 0.5s, color 0.5s;
+}
+.nav-link {
+    transition: color 0.3s, background-color 0.3s;
+    color: #ffffff;
+}
+.nav-link:hover {
+    background-color: #5b8cbf;
+    color: #ffffff;
+}
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+.dark-mode .navbar {
+    background-color: #333;
+}
+.dark-mode .card {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+.dark-mode footer {
+    background-color: #333;
+    color: #ffffff;
+}
+.dark-mode .nav-link {
+    color: #ffffff;
+}
+.dark-mode .nav-link:hover {
+    background-color: #596877;
+    color: #ffffff;
+}
+.btn {
+    transition: background-color 0.5s, color 0.5s;
+}
+.dark-mode .btn-primary {
+    background-color: #5b8cbf;
+    color: #ffffff;
+}
+.dark-mode .btn-primary:hover {
+    background-color: #477aa1;
+}
+.dark-mode .btn-success {
+    background-color: #4caf50;
+    color: #ffffff;
+}
+.dark-mode .btn-success:hover {
+    background-color: #388e3c;
+}
+.dark-mode .modal-content {
+    background-color: #2e2e2e;
+    color: #ffffff;
+}
+.dark-mode .btn-close {
+    filter: invert(1);
+}
+.text-dark-mode {
+    color: inherit;
+}
+.adaptive-textarea {
+    transition: background-color 0.5s, color 0.5s;
+}
+.dark-mode .adaptive-textarea {
+    background-color: #2e2e2e;
+    color: #ffffff;
+    border: 1px solid #5b8cbf;
+}
