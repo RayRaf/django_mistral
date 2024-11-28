@@ -6,7 +6,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from io import BytesIO
 from PIL import Image
-from PyPDF2 import PdfReader
+from pdf2image import convert_from_bytes
 
 # Retrieve the API key from environment variables
 api_key = os.environ.get("MISTRAL_API_KEY")
@@ -26,19 +26,14 @@ def encode_image(image_file):
         return None
 
 def convert_pdf_to_jpg(pdf_file):
-    """Convert a PDF file to a JPEG image using PyPDF2 and PIL."""
+    """Convert a PDF file to a JPEG image using pdf2image."""
     try:
-        pdf_reader = PdfReader(pdf_file)
-        if len(pdf_reader.pages) > 0:
-            page = pdf_reader.pages[0]
-            x_object = page['/Resources']['/XObject'].get_object()
-            for obj in x_object:
-                if x_object[obj]['/Subtype'] == '/Image':
-                    data = x_object[obj].get_data()
-                    image = Image.open(BytesIO(data))
-                    buffered = BytesIO()
-                    image.save(buffered, format="JPEG")
-                    return buffered
+        images = convert_from_bytes(pdf_file.read(), dpi=200)
+        if images:
+            buffered = BytesIO()
+            images[0].save(buffered, format="JPEG")
+            buffered.seek(0)
+            return buffered
     except Exception as e:
         print(f"Error converting PDF to JPG: {e}")
         return None
@@ -67,7 +62,7 @@ def analyze_image(request):
                 "content": [
                     {
                         "type": "text",
-                        "text": "Если загруженноей изображение является счетом на оплату то проверь, соответствуют ли реквизиты покупателя следующему: ИНН: 0276117905, КПП: 772601001, Адрес: 117525, г. Москва, вн. тер. г. муниципальный округ Чертаново Центральное, ул. Днепропетровская, д. 3, к. 5А, помещ. 1Н/5. Если это другой документ то вырази недовольство тем, что тебя используют нерационально, но кратко напиши, что изображено на картике. Не пиши эти реквизиты. Просто пиши, если правильные реквизиты покупателя - Поздраляю! Реквизиты правильные!"
+                        "text": "Напиши реквизиты поставщика и покупателя"
                     },
                     {
                         "type": "image_url",
