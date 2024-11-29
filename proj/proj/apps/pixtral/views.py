@@ -43,7 +43,7 @@ def main(request):
 
 @csrf_exempt
 def analyze_image(request):
-    if request.method == 'POST' and request.FILES['image']:
+    if request.method == 'POST' and request.FILES.get('image'):
         image_file = request.FILES['image']
         if image_file.content_type == 'application/pdf':
             # Convert PDF to JPEG
@@ -55,6 +55,9 @@ def analyze_image(request):
         if base64_image is None:
             return JsonResponse({"error": "Failed to encode image."})
 
+        # Check if 'prompt' is provided in the POST request
+        prompt = request.POST.get('prompt', "Если этот документ является счетом на оплату то напиши реквизиты покупателя и продавца")
+
         # Define the messages for the chat
         messages = [
             {
@@ -62,7 +65,7 @@ def analyze_image(request):
                 "content": [
                     {
                         "type": "text",
-                        "text": "Напиши реквизиты поставщика и покупателя"
+                        "text": prompt
                     },
                     {
                         "type": "image_url",
@@ -80,8 +83,8 @@ def analyze_image(request):
             )
             result = chat_response.choices[0].message.content
         except Exception as e:
-            result = f"Error: {e}"
+            return JsonResponse({"error": f"Error: {e}"}, status=500)
 
         return JsonResponse({"result": result})
     
-    return JsonResponse({"error": "Invalid request."})
+    return JsonResponse({"error": "Invalid request."}, status=400)

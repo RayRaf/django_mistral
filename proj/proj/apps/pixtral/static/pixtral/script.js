@@ -1,7 +1,15 @@
 function analyzeImage() {
     const formData = new FormData();
     const imageFile = document.getElementById('image').files[0];
+    if (!imageFile) {
+        document.getElementById('result').innerText = 'Please select an image or PDF file.';
+        return;
+    }
     formData.append('image', imageFile);
+
+    // Добавляем скрытое поле prompt в formData
+    const prompt = document.getElementById('prompt').value;
+    formData.append('prompt', prompt);
 
     document.getElementById('result').innerText = 'Анализ документа...';
 
@@ -9,7 +17,14 @@ function analyzeImage() {
         method: 'POST',
         body: formData
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            return response.json().then(data => {
+                throw new Error(data.error || 'Network response was not ok');
+            });
+        }
+        return response.json();
+    })
     .then(data => {
         if (data.result) {
             document.getElementById('result').innerText = data.result;
@@ -21,3 +36,4 @@ function analyzeImage() {
         document.getElementById('result').innerText = 'Error: ' + error;
     });
 }
+

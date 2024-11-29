@@ -5,9 +5,11 @@
 {% block content %}
 
     <h1>Анализ счета</h1>
-    <input type="file" id="image" accept="image/*">
-    <button onclick="analyzeImage()">Начать анализ</button>
-    <p id="result"></p>
+    
+         <input type="file" id="image" accept="image/*,application/pdf">
+         <input type="hidden" id="prompt" value="">
+         <button onclick="analyzeImage()">Начать анализ</button>
+         <p id="result"></p>
     
     <script src="{% static 'pixtral/script.js' %}"></script>
 
