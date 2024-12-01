@@ -125,6 +125,8 @@ STATICFILES_DIRS = [
     str(PROJECT_ROOT / 'static'),
 ]
 
+LOGIN_URL = 'home:login'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 

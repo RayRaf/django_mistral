@@ -7,8 +7,10 @@ from docx.shared import Pt
 import tempfile
 import markdown
 import re
+from django.contrib.auth.decorators import login_required
 
 # Home view to render the interface
+@login_required
 def main(request):
     if request.method == "POST":
         prompt = request.POST.get("prompt")
@@ -106,6 +108,7 @@ def markdown_to_word(markdown_text, output_file):
     doc.save(output_file)
 
 # Function to download response as a Word document
+@login_required
 def download_docx(request):
     response_text = request.session.get('response_text', None)
     if not response_text:

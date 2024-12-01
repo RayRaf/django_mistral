@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Вход {% endblock %}
+
+{% block content %}
+
+    
+
+<div class="login-container">
+    <h2>Вход</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="ВХОД"><br>
+       <p>Свяжитесь с администрацией, еслу у Вас нет учетной записи</p>
+    </form>
+</div>
+
+      
+
+{% endblock %}
+
+
+
+
+

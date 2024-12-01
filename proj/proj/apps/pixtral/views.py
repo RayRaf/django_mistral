@@ -7,6 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from io import BytesIO
 from PIL import Image
 from pdf2image import convert_from_bytes
+from django.contrib.auth.decorators import login_required
 
 # Retrieve the API key from environment variables
 api_key = os.environ.get("MISTRAL_API_KEY")
@@ -37,7 +38,9 @@ def convert_pdf_to_jpg(pdf_file):
     except Exception as e:
         print(f"Error converting PDF to JPG: {e}")
         return None
+    
 
+@login_required
 def main(request):
     return render(request, 'pixtral_index.html')
 
