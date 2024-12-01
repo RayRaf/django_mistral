@@ -8,6 +8,8 @@ from io import BytesIO
 from PIL import Image
 from pdf2image import convert_from_bytes
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from home.models import UserStatistics
 
 # Retrieve the API key from environment variables
 api_key = os.environ.get("MISTRAL_API_KEY")
@@ -29,7 +31,7 @@ def encode_image(image_file):
 def convert_pdf_to_jpg(pdf_file):
     """Convert a PDF file to a JPEG image using pdf2image."""
     try:
-        images = convert_from_bytes(pdf_file.read(), dpi=200)
+        images = convert_from_bytes(pdf_file.read(), dpi=400)
         if images:
             buffered = BytesIO()
             images[0].save(buffered, format="JPEG")
@@ -85,6 +87,12 @@ def analyze_image(request):
                 messages=messages
             )
             result = chat_response.choices[0].message.content
+
+            # Increment the successful analyses count for the user
+            if request.user.is_authenticated:
+                user_statistics = UserStatistics.objects.get(user=request.user)
+                user_statistics.successful_image_analyses += 1
+                user_statistics.save()
         except Exception as e:
             return JsonResponse({"error": f"Error: {e}"}, status=500)
 

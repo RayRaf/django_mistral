@@ -9,9 +9,9 @@ let savedTheme = getCookie("theme");
 let isDarkMode = savedTheme === "dark" || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches && !savedTheme);
 if (isDarkMode) {
     document.body.classList.add("dark-mode");
-    document.getElementById("theme-toggle").innerText = "Дневной режим";
+    document.getElementById("theme-toggle").innerHTML = '<i class="bi bi-brightness-high-fill"></i>';
 } else {
-    document.getElementById("theme-toggle").innerText = "Ночной режим";
+    document.getElementById("theme-toggle").innerHTML = '<i class="bi bi-moon-fill"></i>';
 }
 updateBackground();
 
@@ -20,11 +20,11 @@ document.getElementById("theme-toggle").addEventListener("click", function(e) {
     e.preventDefault();
     document.body.classList.toggle("dark-mode");
     if (document.body.classList.contains("dark-mode")) {
-        document.getElementById("theme-toggle").innerText = "Дневной режим";
+        document.getElementById("theme-toggle").innerHTML = '<i class="bi bi-brightness-high-fill"></i>';
         document.cookie = "theme=dark; path=/; max-age=31536000"; // Сохранить тему в cookies на год
         isDarkMode = true;
     } else {
-        document.getElementById("theme-toggle").innerText = "Ночной режим";
+        document.getElementById("theme-toggle").innerHTML = '<i class="bi bi-moon-fill"></i>';
         document.cookie = "theme=light; path=/; max-age=31536000"; // Сохранить тему в cookies на год
         isDarkMode = false;
     }

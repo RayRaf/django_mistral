@@ -8,6 +8,7 @@ import tempfile
 import markdown
 import re
 from django.contrib.auth.decorators import login_required
+from home.models import UserStatistics
 
 # Home view to render the interface
 @login_required
@@ -16,6 +17,10 @@ def main(request):
         prompt = request.POST.get("prompt")
         response = get_mistral_response(prompt)
         request.session['response_text'] = response  # Save raw response in session for download
+        if request.user.is_authenticated:
+            user_statistics = UserStatistics.objects.get(user=request.user)
+            user_statistics.successful_text_analyses += 1
+            user_statistics.save()
         return JsonResponse({"response": response})
     return render(request, "mistral_index.html")
 

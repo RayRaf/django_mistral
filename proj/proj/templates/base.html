@@ -7,8 +7,8 @@
     <title> {% block title %}{% endblock %} </title>
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.8.1/font/bootstrap-icons.min.css">
 </head>
 <body>
     <div id="background">
@@ -21,7 +21,7 @@
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand text-white" href="#">Инструменты с ИИ</a>
+            <a class="navbar-brand text-white" href="{% url 'home:main' %}">Инструменты с ИИ</a>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item dropdown">
@@ -41,8 +41,14 @@
                     <li class="nav-item">
                         <a class="nav-link text-white" href="#" data-bs-toggle="modal" data-bs-target="#helpModal">Помощь</a>
                     </li>
+
                     <li class="nav-item">
-                        <a class="nav-link text-white" id="theme-toggle" href="#">Ночной режим</a>
+                        <a class="nav-link text-white" href="{% url 'home:user_dashboard' %}">Кабинет</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white" id="theme-toggle" href="#" aria-label="Toggle theme">
+                            <i class="bi bi-moon-fill"></i>
+                        </a>
                     </li>
                 </ul>
             </div>

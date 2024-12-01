@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from .forms import CustomAuthenticationForm
+from .models import UserStatistics
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def main(request):
@@ -31,3 +33,23 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home:login')
+
+
+
+
+#Личный кабинет
+@login_required
+def user_dashboard(request):
+    if request.user.is_authenticated:
+        try:
+            user_statistics = UserStatistics.objects.get(user=request.user)
+        except UserStatistics.DoesNotExist:
+            user_statistics = None
+    else:
+        user_statistics = None
+
+    context = {
+        'user': request.user,
+        'user_statistics': user_statistics,
+    }
+    return render(request, 'home_user_dashboard.html', context)
