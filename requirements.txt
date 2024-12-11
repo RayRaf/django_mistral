@@ -4,3 +4,4 @@ mistralai==1.2.5
 pdf2image==1.17.0
 Pillow==11.0.0
 python_docx==1.1.2
+whitenoise==6.8.2
