@@ -20,4 +20,4 @@ RUN python manage.py collectstatic --noinput
 EXPOSE 8000
 
 # Устанавливаем команду запуска приложения
-CMD ["uvicorn", "proj.asgi:application", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["sh", "-c", "python manage.py migrate && uvicorn proj.asgi:application --host 0.0.0.0 --port 8000"]
