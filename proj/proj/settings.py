@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-^@e+_#hk%)c*ji1619knu+hc9=03_szv%)a_1r&3926dg&r#7)
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
-CSRF_TRUSTED_ORIGINS = ['https://tutorial-cant-bring-remedies.trycloudflare.com'] # Заменить на правильный при публикации
+CSRF_TRUSTED_ORIGINS = ['https://ai.astrolis.ru'] # Заменить на правильный при публикации
 
 # Application definition
 

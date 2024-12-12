@@ -4,10 +4,16 @@ FROM python:3.10-slim
 # Устанавливаем рабочую директорию в контейнере
 WORKDIR /app
 
+# Устанавливаем зависимости для системы
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    poppler-utils \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
 # Копируем файл зависимостей в контейнер
 COPY requirements.txt .
 
-# Устанавливаем зависимости
+# Устанавливаем зависимости Python
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Копируем всё содержимое проекта в контейнер
